@@ -1,0 +1,30 @@
+<!-- templates/animal_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Information</title>
+</head>
+
+<body>
+    <h1>Information about "{{ animal_name }}"</h1>
+
+    {% if animal_data %}
+    <ul>
+        {% for animal in animal_data %}
+        <li>
+            <strong>Name:</strong> {{ animal.name }} <br>
+            <strong>Taxonomy:</strong> {{ animal.taxonomy }} <br>
+            <strong>Locations:</strong> {{ animal.locations }} <br>
+            <strong>Characteristics:</strong> {{ animal.characteristics }} <br>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2>The animal "{{ animal_name }}" doesn't exist.</h2>
+    {% endif %}
+</body>
+
+</html>
