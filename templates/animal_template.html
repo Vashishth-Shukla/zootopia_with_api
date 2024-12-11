@@ -6,91 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Information</title>
     <style>
-        @gray-darker: #444444;
-        @gray-dark: #696969;
-        @gray: #999999;
-        @gray-light: #cccccc;
-        @gray-lighter: #ececec;
-        @gray-lightest: lighten(@gray-lighter, 4%);
-
-        html {
-            background-color: #ffe9e9;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 40pt;
-            font-weight: normal;
-        }
-
         body {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-style: normal;
-            font-weight: 400;
-            letter-spacing: 0;
-            padding: 1rem;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            -moz-font-feature-settings: "liga" on;
-            width: 900px;
-            margin: auto;
-        }
-
-        .cards {
-            list-style: none;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
         }
 
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 30px;
+            color: #4a90e2;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
         .cards__item {
             background-color: white;
-            border-radius: 0.25rem;
-            box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            padding: 1rem;
-            margin: 50px;
+            padding: 20px;
+            width: 300px;
+            margin: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .cards__item:hover {
+            transform: translateY(-5px);
         }
 
         .card__title {
-            color: @gray-dark;
-            font-size: 1.25rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-transform: capitalize;
         }
 
         .card__text {
-            flex: 1 1 auto;
-            font-size: 0.95rem;
-            line-height: 2;
-            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            color: #34495e;
+            margin-bottom: 10px;
         }
 
-        h2 {
+        .card__text strong {
             color: #e74c3c;
+        }
+
+        .no-data {
             text-align: center;
+            font-size: 1.2rem;
+            color: #e74c3c;
         }
     </style>
 </head>
 
 <body>
+
     <h1>My Animal Repository</h1>
 
-    {% if animal_data %}
-    <ul class="cards">
-        {% for animal in animal_data %}
-        <li class="cards__item">
-            <h2 class="card__title">{{ animal.name }}</h2>
-            <p class="card__text"><strong>Taxonomy:</strong> {{ animal.taxonomy }}</p>
-            <p class="card__text"><strong>Locations:</strong> {{ animal.locations }}</p>
-            <p class="card__text"><strong>Characteristics:</strong> {{ animal.characteristics }}</p>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <h2>The animal "{{ animal_name }}" doesn't exist.</h2>
-    {% endif %}
+    <div class="container">
+        {% if animal_data %}
+        <div class="cards">
+            {% for animal in animal_data %}
+            <div class="cards__item">
+                <h2 class="card__title">{{ animal.name }}</h2>
+                <p class="card__text"><strong>Taxonomy:</strong> {{ animal.taxonomy }}</p>
+                <p class="card__text"><strong>Locations:</strong> {{ animal.locations }}</p>
+                <p class="card__text"><strong>Characteristics:</strong></p>
+                <ul>
+                    {% for characteristic in animal.characteristics %}
+                    <li>{{ characteristic }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-data">The animal "{{ animal_name }}" doesn't exist or no data available.</p>
+        {% endif %}
+    </div>
+
 </body>
 
 </html>

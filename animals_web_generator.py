@@ -1,6 +1,3 @@
-# animals_web_generator.py
-import os
-
 from dotenv import load_dotenv
 from jinja2 import Template
 
@@ -29,6 +26,10 @@ def generate_website(animal_name, animal_data):
 
 
 def main():
+    """
+    Main function that interacts with the user to fetch animal data,
+    generate an HTML page, and save it to a file.
+    """
     animal_name = input("Please enter an animal: ")
     animal_data = data_fetcher.fetch_data(animal_name)
 
