@@ -33,6 +33,15 @@ def main():
     animal_name = input("Please enter an animal: ")
     animal_data = data_fetcher.fetch_data(animal_name)
 
+    # Ensure characteristics is a dictionary (if available)
+    if animal_data:
+        for animal in animal_data:
+            # Check if 'characteristics' exists and is a dictionary
+            if isinstance(animal.get("characteristics"), dict):
+                pass  # It's already in the right format
+            else:
+                animal["characteristics"] = {}  # Default to empty if not a dictionary
+
     generate_website(animal_name, animal_data)
     print("Website was successfully generated to the file animals.html.")
 

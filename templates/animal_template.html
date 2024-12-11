@@ -69,6 +69,15 @@
             font-size: 1.2rem;
             color: #e74c3c;
         }
+
+        .characteristics-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .characteristics-list li {
+            padding: 5px 0;
+        }
     </style>
 </head>
 
@@ -84,12 +93,17 @@
                 <h2 class="card__title">{{ animal.name }}</h2>
                 <p class="card__text"><strong>Taxonomy:</strong> {{ animal.taxonomy }}</p>
                 <p class="card__text"><strong>Locations:</strong> {{ animal.locations }}</p>
+
                 <p class="card__text"><strong>Characteristics:</strong></p>
-                <ul>
-                    {% for characteristic in animal.characteristics %}
-                    <li>{{ characteristic }}</li>
+                {% if animal.characteristics %}
+                <ul class="characteristics-list">
+                    {% for key, value in animal.characteristics.items() %}
+                    <li><strong>{{ key|capitalize }}:</strong> {{ value }}</li>
                     {% endfor %}
                 </ul>
+                {% else %}
+                <p>No characteristics data available.</p>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
